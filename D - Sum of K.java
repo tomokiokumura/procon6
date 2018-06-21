@@ -1,6 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -11,13 +10,10 @@ public class Main {
             num[i] = Long.parseLong(str[i]);
         }
 
-        long sum = 0;
-        for (long i = num[0]; i < num[1]; i++) {
-            if (i % num[2] == 0) {
-                sum += i;
-            }
-        }
-
-        System.out.println(sum);
+        long A = num[0], B = num[1], K = num[2];
+        long a = A >= 0 ? (A + K - 1) / K : A / K;
+        long b = B >= 0 ? (B + K - 1) / K : B / K;
+        long ans = K * ((b - 1) * b / 2 - (a - 1) * a / 2);
+        System.out.println(ans);
     }
 }
