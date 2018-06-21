@@ -1,22 +1,27 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String S = br.readLine();
-        String regex = "GC|CP|PG";
-        StringBuilder sb = new StringBuilder(S);
-        Matcher m = Pattern.compile(regex).matcher(sb.toString());
+        String str = new String();
 
-        while (m.find()) {
-            sb.delete(m.start(), m.end());
-            m = Pattern.compile(regex).matcher(sb.toString());
+        Deque<Character> deque = new ArrayDeque<>();
+        deque.push(S.charAt(0));
+        for (int i = 1; i < S.length(); i++) {
+            if (deque.peekFirst() != null) {
+                str = deque.peekFirst().toString() + S.charAt(i);
+                if (str.equals("GC") || str.equals("CP") || str.equals("PG")) {
+                    deque.pop();
+                } else {
+                    deque.push(S.charAt(i));
+                }
+            } else {
+                deque.push(S.charAt(i));
+            }
         }
 
-        System.out.println(sb.length());
+        System.out.println(deque.size());
     }
 }
